@@ -39,17 +39,54 @@ class DashboardController extends Controller
 
     public function editReview($id){
         try {
-            $reviews  = Review::where('id', $id)->get();
+            $reviews           = Review::where('id', $id)->get();
             if($reviews->isNotEmpty()){
-            	$reviews = $reviews[0];
-            	$companies  = Company::where('id', $reviews->company_id)->first();
-                return view('admin.editReview',compact('reviews','companies','id'));
+            	$reviews       = $reviews[0];
+            	$companies     = Company::where('id', $reviews->company_id)->first();
+                $package_codes = PackageCode::where('id', $reviews->packagecode_id)->get();
+                return view('admin.editReview',compact('reviews','companies','package_codes','id'));
             }else{
                 return redirect()->route('admin.viewReview')->with('error','Review not exist');
             }
         } catch (\Exception $e) {
         	dd($e);
             return redirect()->route('admin.viewReview')->with('error','Something went wrong');            
+        }
+    }
+
+    public function updateReview(Request $request, $id){
+        // dd($request);
+        $request->validate([
+            'nusuk_booking_no'                  => 'required|string|max:255',
+            'guide_name'                        => 'required|string|max:255',
+            'accommodation'                     => 'required|max:255',
+            'transportation'                    => 'required|max:255',
+            'meal'                              => 'required|max:255',
+            'guide_support_booking_process'     => 'required|max:255',
+            'guide_support_hajj'                => 'required|max:255',
+            'experience'                        => 'required|string|max:255',
+        ]);
+        
+        try {
+            $data                               = DB::table('reviews')->where('id', $id)->update([
+                'nusuk_booking_no'              => $request->nusuk_booking_no,
+                'guide_name'                    => $request->guide_name,
+                'accommodation'                 => $request->accommodation,
+                'transportation'                => $request->transportation,
+                'meal'                          => $request->meal,
+                'guide_support_booking_process' => $request->guide_support_booking_process,
+                'guide_support_hajj'            => $request->guide_support_hajj,
+                'experience'                    => $request->experience,
+                'updated_at'                    => now(),
+            ]);
+
+            if($data){
+                return redirect()->route('admin.viewReview')->with('success','Review updated successfully');
+            }else{
+                return redirect()->route('admin.viewReview')->with('error','Something went wrong');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('admin.viewReview')->with('error','Something went wrong');
         }
     }
 

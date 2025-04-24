@@ -42,7 +42,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Review
     Route::get('admin/viewReview/{status?}', [ReviewDashboard::class, 'viewReview'])->name('admin.viewReview');
     Route::get('admin/editReview/{id}', [ReviewDashboard::class, 'editReview'])->name('admin.editReview');
-    Route::get('admin/updateReview/{id}', [ReviewDashboard::class, 'updateReview'])->name('admin.updateReview');
+    Route::post('admin/updateReview/{id}', [ReviewDashboard::class, 'updateReview'])->name('admin.updateReview');
     Route::get('admin/deleteReview/{id}', [ReviewDashboard::class, 'deleteReview'])->name('admin.deleteReview');
     Route::get('admin/approve/{id}', [ReviewDashboard::class, 'approve']);
     Route::get('admin/pending/{id}', [ReviewDashboard::class, 'pending']);

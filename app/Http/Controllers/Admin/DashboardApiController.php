@@ -19,7 +19,12 @@ class DashboardApiController extends Controller
 {
     public function getAllCompanyList(Request $request){
         try {
-            $companies = Company::with('packageCodes')->with('reviews')->get();
+            // $companies = Company::with('packageCodes')->with('reviews')->get();
+            $companies = Company::with('packageCodes')
+                            ->with(['reviews' => function($query) {
+                                $query->where('status', 'approve');
+                            }])
+                            ->get();
             return response()->json([
                 'success'   => true,
                 'data'      => $companies,
@@ -35,7 +40,11 @@ class DashboardApiController extends Controller
 
     public function getCompanyList(Request $request){
         try {
-            $data = Company::where('companies.id', $request->id)->with('packageCodes')->with('reviews')->first();
+            $data = Company::where('companies.id', $request->id)->with('packageCodes')
+                        ->with(['reviews' => function($query) {
+                            $query->where('status', 'approve');
+                        }])
+                        ->first();
             return response()->json([
                 'success'   => true,
                 'data'      => $data,

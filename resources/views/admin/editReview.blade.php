@@ -31,22 +31,138 @@
           <!--begin::Row-->
           <div class="row g-3">
 
+            <h3><b>User Details</b></h3>
+
             <!--begin::Col-->
             <div class="col-md-4">
                 <label for="validationCustom01" class="form-label">User Name</label>
-                <input name="user_name" value="{{ $reviews->user_name }}" type="text" class="form-control" id="validationCustom01" required/>
+                <input name="user_name" value="{{ $reviews->user_name }}" type="text" class="form-control" id="validationCustom01" required readonly/>
                 <div class="valid-feedback">Looks good!</div>
             </div>
             <!--end::Col-->
 
             <!--begin::Col-->
             <div class="col-md-4">
-                <label for="validationCustom01" class="form-label">Select Company</label>
-                <select name="company_id" type="text" class="form-control" id="validationCustom01" required>
-                  @if($reviews->company_id == $companies->id)
-                    <option selected value="{{ $companies->id }}">{{ $companies->name }}</option>
-                  @endif
+                <label for="validationCustom01" class="form-label">Email</label>
+                <input name="email" value="{{ $reviews->email }}" type="email" class="form-control" id="validationCustom01" required readonly/>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Contact</label>
+                <input name="contact_no" value="{{ $reviews->contact_no }}" type="number" class="form-control" id="validationCustom01" required readonly/>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <h3><b>Review</b></h3>
+
+            <!--begin::Col-->
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Select Package Code</label>
+                <select name="package_code" type="text" class="form-control" id="validationCustom01" required>
+                  @foreach($package_codes as $val_PC)  
+                    @if($reviews->packagecode_id == $val_PC->id)
+                      <option selected value="{{ $val_PC->id }}">{{ $val_PC->code }}</option>
+                    @endif
+                  @endforeach
                 </select>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Nusuk Booking Number</label>
+                <input name="nusuk_booking_no" value="{{ $reviews->nusuk_booking_no }}" type="text" class="form-control" id="validationCustom01" required/>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Guide Name</label>
+                <input name="guide_name" value="{{ $reviews->guide_name }}" type="text" class="form-control" id="validationCustom01" required/>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-4">
+              <label class="form-label">Accommodation</label>
+              <select name="accommodation" id="accommodation" class="form-select" required>
+                  @for ($i = 1; $i <= 5; $i++)
+                      <option value="{{ $i }}" {{ $reviews->accommodation == $i ? 'selected' : '' }}>
+                          {{ $i }} Star{{ $i > 1 ? 's' : '' }}
+                      </option>
+                  @endfor
+              </select>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-4">
+              <label class="form-label">Transportation</label>
+              <select name="transportation" class="form-select" required>
+                  @for ($i = 1; $i <= 5; $i++)
+                      <option value="{{ $i }}" {{ $reviews->transportation == $i ? 'selected' : '' }}>
+                          {{ $i }} Star{{ $i > 1 ? 's' : '' }}
+                      </option>
+                  @endfor
+              </select>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-4">
+              <label class="form-label">Meal</label>
+              <select name="meal" class="form-select" required>
+                  @for ($i = 1; $i <= 5; $i++)
+                      <option value="{{ $i }}" {{ $reviews->meal == $i ? 'selected' : '' }}>
+                          {{ $i }} Star{{ $i > 1 ? 's' : '' }}
+                      </option>
+                  @endfor
+              </select>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-6">
+              <label class="form-label">Guide Support During Booking Process</label>
+              <select name="guide_support_booking_process" class="form-select" required>
+                  @for ($i = 1; $i <= 5; $i++)
+                      <option value="{{ $i }}" {{ $reviews->guide_support_booking_process == $i ? 'selected' : '' }}>
+                          {{ $i }} Star{{ $i > 1 ? 's' : '' }}
+                      </option>
+                  @endfor
+              </select>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-6">
+              <label class="form-label">Guide Support During Hajj</label>
+              <select name="guide_support_hajj" class="form-select" required>
+                  @for ($i = 1; $i <= 5; $i++)
+                      <option value="{{ $i }}" {{ $reviews->guide_support_hajj == $i ? 'selected' : '' }}>
+                          {{ $i }} Star{{ $i > 1 ? 's' : '' }}
+                      </option>
+                  @endfor
+              </select>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-12">
+                <label for="validationCustom01" class="form-label">Tell us more about your experience</label>
+                <textarea name="experience" value="{{ $reviews->experience }}" class="form-control" id="validationCustom01" required/>{{ $reviews->experience }}</textarea>
                 <div class="valid-feedback">Looks good!</div>
             </div>
             <!--end::Col-->
