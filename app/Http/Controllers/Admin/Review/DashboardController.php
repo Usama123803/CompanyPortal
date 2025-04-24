@@ -55,7 +55,6 @@ class DashboardController extends Controller
     }
 
     public function updateReview(Request $request, $id){
-        // dd($request);
         $request->validate([
             'nusuk_booking_no'                  => 'required|string|max:255',
             'guide_name'                        => 'required|string|max:255',
@@ -64,7 +63,7 @@ class DashboardController extends Controller
             'meal'                              => 'required|max:255',
             'guide_support_booking_process'     => 'required|max:255',
             'guide_support_hajj'                => 'required|max:255',
-            'experience'                        => 'required|string|max:255',
+            'experience'                        => 'required',
         ]);
         
         try {
@@ -86,6 +85,7 @@ class DashboardController extends Controller
                 return redirect()->route('admin.viewReview')->with('error','Something went wrong');
             }
         } catch (\Exception $e) {
+            // dd($e);
             return redirect()->route('admin.viewReview')->with('error','Something went wrong');
         }
     }

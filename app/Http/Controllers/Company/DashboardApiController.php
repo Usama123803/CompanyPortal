@@ -22,7 +22,7 @@ class DashboardApiController extends Controller
             'meal'                              => 'required|max:255',
             'guide_support_booking_process'     => 'required|max:255',
             'guide_support_hajj'                => 'required|max:255',
-            'experience'                        => 'required|string|max:255',
+            'experience'                        => 'required',
         ]);
         
         try {
