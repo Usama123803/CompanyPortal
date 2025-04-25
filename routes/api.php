@@ -3,10 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CompanyLoginController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
-use App\Http\Controllers\Admin\DashboardApiController as AdminApiDashboard;
-use App\Http\Controllers\Company\DashboardController as CompanyDashboard;
-use App\Http\Controllers\Company\DashboardApiController as CompanyApiDashboard;
+use App\Http\Controllers\Admin\Company\CompanyApiController;
+use App\Http\Controllers\Company\Review\ReviewApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('getAllCompanyList', [AdminApiDashboard::class, 'getAllCompanyList']);
-Route::post('getCompanyList', [AdminApiDashboard::class, 'getCompanyList']);
-Route::post('addReview', [CompanyApiDashboard::class, 'addReview']);
+Route::get('getAllCompanyList', [CompanyApiController::class, 'getAllCompanyList']);
+Route::post('getCompanyList', [CompanyApiController::class, 'getCompanyList']);
+Route::post('addReview', [ReviewApiController::class, 'addReview']);

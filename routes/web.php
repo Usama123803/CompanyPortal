@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CompanyLoginController;
-use App\Http\Controllers\Admin\PackageCode\DashboardController as PackageCodeDashboard;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
-use App\Http\Controllers\Company\DashboardController as CompanyDashboard;
-use App\Http\Controllers\Admin\Review\DashboardController as ReviewDashboard;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PackageCode\AdminPackageCodeDashboard;
+use App\Http\Controllers\Admin\Company\AdminCompanyController;
+use App\Http\Controllers\Admin\Review\AdminReviewController;
+use App\Http\Controllers\Company\Review\CompanyReviewController;
+use App\Http\Controllers\Company\PackageCode\CompanyPackageCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,32 +22,32 @@ use App\Http\Controllers\Admin\Review\DashboardController as ReviewDashboard;
 
 // Admin routes
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/', [AdminDashboard::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // Package Code
-    Route::get('/admin/createPackageCode', [PackageCodeDashboard::class, 'createPackageCode'])->name('admin.createPackageCode');
-    Route::post('/admin/addPackageCode', [PackageCodeDashboard::class, 'addPackageCode'])->name('admin.addPackageCode');
-    Route::get('/admin/viewPackageCode', [PackageCodeDashboard::class, 'viewPackageCode'])->name('admin.viewPackageCode');
-    Route::get('/admin/editPackageCode/{id}', [PackageCodeDashboard::class, 'editPackageCode'])->name('admin.editPackageCode');
-    Route::post('/admin/updatePackageCode/{id}', [PackageCodeDashboard::class, 'updatePackageCode'])->name('admin.updatePackageCode');
-    Route::get('/admin/deletePackageCode/{id}', [PackageCodeDashboard::class, 'deletePackageCode'])->name('admin.deletePackageCode');
+    Route::get('/admin/createPackageCode', [AdminPackageCodeDashboard::class, 'createPackageCode'])->name('admin.createPackageCode');
+    Route::post('/admin/addPackageCode', [AdminPackageCodeDashboard::class, 'addPackageCode'])->name('admin.addPackageCode');
+    Route::get('/admin/viewPackageCode', [AdminPackageCodeDashboard::class, 'viewPackageCode'])->name('admin.viewPackageCode');
+    Route::get('/admin/editPackageCode/{id}', [AdminPackageCodeDashboard::class, 'editPackageCode'])->name('admin.editPackageCode');
+    Route::post('/admin/updatePackageCode/{id}', [AdminPackageCodeDashboard::class, 'updatePackageCode'])->name('admin.updatePackageCode');
+    Route::get('/admin/deletePackageCode/{id}', [AdminPackageCodeDashboard::class, 'deletePackageCode'])->name('admin.deletePackageCode');
 
     // Company
-    Route::get('/admin/createCompany', [AdminDashboard::class, 'createCompany'])->name('admin.createCompany');
-    Route::post('/admin/addCompany', [AdminDashboard::class, 'addCompany'])->name('admin.addCompany');
-    Route::get('/admin/viewCompany', [AdminDashboard::class, 'viewCompany'])->name('admin.viewCompany');
-    Route::get('/admin/editCompany/{id}', [AdminDashboard::class, 'editCompany'])->name('admin.editCompany');
-    Route::post('/admin/updateCompany/{id}', [AdminDashboard::class, 'updateCompany'])->name('admin.updateCompany');
-    Route::get('/admin/deleteCompany/{id}', [AdminDashboard::class, 'deleteCompany'])->name('admin.deleteCompany');
+    Route::get('/admin/createCompany', [AdminCompanyController::class, 'createCompany'])->name('admin.createCompany');
+    Route::post('/admin/addCompany', [AdminCompanyController::class, 'addCompany'])->name('admin.addCompany');
+    Route::get('/admin/viewCompany', [AdminCompanyController::class, 'viewCompany'])->name('admin.viewCompany');
+    Route::get('/admin/editCompany/{id}', [AdminCompanyController::class, 'editCompany'])->name('admin.editCompany');
+    Route::post('/admin/updateCompany/{id}', [AdminCompanyController::class, 'updateCompany'])->name('admin.updateCompany');
+    Route::get('/admin/deleteCompany/{id}', [AdminCompanyController::class, 'deleteCompany'])->name('admin.deleteCompany');
     
     // Review
-    Route::get('admin/viewReview/{status?}', [ReviewDashboard::class, 'viewReview'])->name('admin.viewReview');
-    Route::get('admin/editReview/{id}', [ReviewDashboard::class, 'editReview'])->name('admin.editReview');
-    Route::post('admin/updateReview/{id}', [ReviewDashboard::class, 'updateReview'])->name('admin.updateReview');
-    Route::get('admin/deleteReview/{id}', [ReviewDashboard::class, 'deleteReview'])->name('admin.deleteReview');
-    Route::get('admin/approve/{id}', [ReviewDashboard::class, 'approve']);
-    Route::get('admin/pending/{id}', [ReviewDashboard::class, 'pending']);
+    Route::get('admin/viewReview/{status?}', [AdminReviewController::class, 'viewReview'])->name('admin.viewReview');
+    Route::get('admin/editReview/{id}', [AdminReviewController::class, 'editReview'])->name('admin.editReview');
+    Route::post('admin/updateReview/{id}', [AdminReviewController::class, 'updateReview'])->name('admin.updateReview');
+    Route::get('admin/deleteReview/{id}', [AdminReviewController::class, 'deleteReview'])->name('admin.deleteReview');
+    Route::get('admin/approve/{id}', [AdminReviewController::class, 'approve']);
+    Route::get('admin/pending/{id}', [AdminReviewController::class, 'pending']);
 });
 
 // Company routes
@@ -58,11 +60,16 @@ Route::prefix('company')->group(function () {
         Route::post('/logout', [CompanyLoginController::class, 'logout'])->name('company.logout');
 
         // Package Code
-        Route::get('/viewPackageCode', [CompanyDashboard::class, 'viewPackageCode'])->name('company.viewPackageCode');
+        Route::get('/createPackageCode', [CompanyPackageCodeController::class, 'createPackageCode'])->name('company.createPackageCode');
+        Route::post('/addPackageCode', [CompanyPackageCodeController::class, 'addPackageCode'])->name('company.addPackageCode');
+        Route::get('/viewPackageCode', [CompanyPackageCodeController::class, 'viewPackageCode'])->name('company.viewPackageCode');
+        Route::get('/editPackageCode/{id}', [CompanyPackageCodeController::class, 'editPackageCode'])->name('company.editPackageCode');
+        Route::post('/updatePackageCode/{id}', [CompanyPackageCodeController::class, 'updatePackageCode'])->name('company.updatePackageCode');
+        Route::get('/deletePackageCode/{id}', [CompanyPackageCodeController::class, 'deletePackageCode'])->name('company.deletePackageCode');
         
         // Review
-        Route::get('/createReview', [CompanyDashboard::class, 'createReview'])->name('company.createReview');
-        Route::get('/viewReview/{status?}', [CompanyDashboard::class, 'viewReview'])->name('company.viewReview');
+        Route::get('/createReview', [CompanyReviewController::class, 'createReview'])->name('company.createReview');
+        Route::get('/viewReview/{status?}', [CompanyReviewController::class, 'viewReview'])->name('company.viewReview');
     });
 });
 

@@ -15,7 +15,7 @@ use App\Models\PackageCode;
 use App\Models\Review;
 use Illuminate\Validation\Rule;
 
-class DashboardController extends Controller
+class AdminReviewController extends Controller
 {
 	// Review
     public function viewReview(Request $request, $status = NULL){

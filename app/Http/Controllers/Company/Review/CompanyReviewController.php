@@ -1,15 +1,44 @@
 <?php
 
-namespace App\Http\Controllers\Company;
+namespace App\Http\Controllers\Company\Review;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use App\Models\Company;
+use App\Models\PackageCode;
+use App\Models\Review;
 
-class DashboardApiController extends Controller
+class CompanyReviewController extends Controller
 {
-	public function addReview(Request $request){
+    public function createReview(Request $request)
+    {
+        return view('company.review.createReview');
+    }
+
+    public function viewReview(Request $request, $status = NULL){
+        try {
+            $company_id = Session::get('company_id');
+
+            if($status != NULL){
+                $reviews    = DB::table('reviews')->where('company_id',$company_id)->where('status', $status)->get();
+            }else{
+                $reviews    = DB::table('reviews')->where('company_id',$company_id)->get();
+            }
+
+            if($reviews){
+                return view('company.viewReview',compact('reviews'));
+            }else{
+                return redirect()->route('company.dashboard')->with('error','Something went wrong');
+            }
+        } catch (\Exception $e) {
+            // dd($e);
+            return redirect()->route('company.dashboard')->with('error','Something went wrong');            
+        }
+    }
+
+    public function addReview(Request $request){
         $request->validate([
             'user_name'                         => 'required|string|max:255',
             'email'                             => 'required|string|max:255',
@@ -26,16 +55,13 @@ class DashboardApiController extends Controller
         ]);
         
         try {
-            $company                            = DB::table('companies')->where('id', $request->company_id)->first();
-            $package_codes                      = DB::table('package_codes')->where('id', $request->package_code)->first();
+            $company_id                         = Session::get('company_id');
             $data                               = DB::table('reviews')->insertGetId([
-                'user_id'                       => $company->user_id,
-                'company_id'                    => $request->company_id,
-                'packagecode_id'                => $request->package_code,
+                'company_id'                    => $company_id,
                 'user_name'                     => $request->user_name,
                 'email'                         => $request->email,
                 'contact_no'                    => $request->contact_no,
-                'package_code'                  => $package_codes->code,
+                'package_code'                  => $request->package_code,
                 'nusuk_booking_no'              => $request->nusuk_booking_no,
                 'guide_name'                    => $request->guide_name,
                 'accommodation'                 => $request->accommodation,
@@ -48,16 +74,16 @@ class DashboardApiController extends Controller
                 'updated_at'                    => now(),
             ]);
 
-            return response()->json([
-                'success'   => true,
-                'message'   => 'Reviews added successfully.',
-            ], 200);
+            // dd($data);
+
+            if($data){
+                return redirect()->route('company.createReview')->with('success','Company added successfully');
+            }else{
+                return redirect()->route('company.createReview')->with('error','Something went wrong');
+            }
         } catch (\Exception $e) {
-            return response()->json([
-                'success'   => false,
-                'message'   => 'Failed to add reviews.',
-                'error'     => $e->getMessage(),
-            ], 500);
+            // dd($e);
+            return redirect()->route('company.createReview')->with('error','Something went wrong');            
         }
     }
 }

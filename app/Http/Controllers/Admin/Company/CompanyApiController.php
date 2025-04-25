@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Company;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,16 +15,15 @@ use App\Models\PackageCode;
 use App\Models\Review;
 use Illuminate\Validation\Rule;
 
-class DashboardApiController extends Controller
+class CompanyApiController extends Controller
 {
     public function getAllCompanyList(Request $request){
         try {
-            // $companies = Company::with('packageCodes')->with('reviews')->get();
             $companies = Company::with('packageCodes')
                             ->with(['reviews' => function($query) {
                                 $query->where('status', 'approve');
                             }])
-                            ->get();
+                            ->orderBy('id', 'desc')->get();
             return response()->json([
                 'success'   => true,
                 'data'      => $companies,
