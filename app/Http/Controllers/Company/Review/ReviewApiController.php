@@ -10,8 +10,6 @@ use DB;
 class ReviewApiController extends Controller
 {
 	public function addReview(Request $request){
-        return 'OK';
-
         $request->validate([
             'user_name'                         => 'required|string|max:255',
             'email'                             => 'required|string|max:255',
