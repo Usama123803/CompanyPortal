@@ -23,7 +23,7 @@ class AdminPackageCodeDashboard extends Controller
             $companies  = DB::table('companies')->where('user_id',$user_id)->get();
 
             if($companies){
-                return view('admin.createPackageCode',compact('companies'));
+                return view('admin.packagecode.createPackageCode',compact('companies'));
             }else{
                 return redirect()->route('admin.dashboard')->with('error','Something went wrong');
             }
@@ -71,7 +71,7 @@ class AdminPackageCodeDashboard extends Controller
             $user_id        = Session::get('user_id');
             $package_codes  = PackageCode::where('package_codes.user_id', $user_id)->with('company')->with('reviews')->get();
             if($package_codes){
-                return view('admin.viewPackageCode',compact('package_codes'));
+                return view('admin.packagecode.viewPackageCode',compact('package_codes'));
             }else{
                 return redirect()->route('admin.dashboard')->with('error','Something went wrong');
             }
@@ -107,7 +107,7 @@ class AdminPackageCodeDashboard extends Controller
             $package_codes      = PackageCode::where('package_codes.id', $id)->with('company')->with('reviews')->get();
             if($package_codes->isNotEmpty()){
                 $package_codes  = $package_codes[0];
-                return view('admin.editPackageCode',compact('companies','package_codes', 'id'));
+                return view('admin.packagecode.editPackageCode',compact('companies','package_codes', 'id'));
             }else{
                 return redirect()->route('admin.viewPackageCode')->with('error','Something went wrong');
             }

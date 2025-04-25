@@ -28,7 +28,7 @@ class AdminReviewController extends Controller
             }
 
             if($reviews->isNotEmpty()){
-                return view('admin.viewReview',compact('reviews'));
+                return view('admin.review.viewReview',compact('reviews'));
             }else{
                 return redirect()->route('admin.dashboard')->with('error','Something went wrong');
             }
@@ -44,7 +44,7 @@ class AdminReviewController extends Controller
             	$reviews       = $reviews[0];
             	$companies     = Company::where('id', $reviews->company_id)->first();
                 $package_codes = PackageCode::where('id', $reviews->packagecode_id)->get();
-                return view('admin.editReview',compact('reviews','companies','package_codes','id'));
+                return view('admin.review.editReview',compact('reviews','companies','package_codes','id'));
             }else{
                 return redirect()->route('admin.viewReview')->with('error','Review not exist');
             }

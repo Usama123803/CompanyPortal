@@ -6,7 +6,7 @@
 
 	<div class="card card-info card-outline mb-4">
       <!--begin::Header-->
-      <div class="card-header"><div class="card-title">Create Company</div></div>
+      <div class="card-header"><div class="card-title">Edit Company</div></div>
       <!--end::Header-->
 
       @if (session('success'))
@@ -23,8 +23,18 @@
         </div>
       @endif
 
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
       <!--begin::Form-->
-      <form class="needs-validation" action="{{ route('admin.addCompany') }}" novalidate method="post">
+      <form class="needs-validation" action="{{ route('admin.updateCompany', ['id' => $id]) }}" novalidate method="post">
       	@csrf
         <!--begin::Body-->
         <div class="card-body">
@@ -32,32 +42,19 @@
           <div class="row g-3">
 
           	<!--begin::Col-->
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="validationCustomUsername" class="form-label">Email</label>
               <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                 <input
+                  value="{{ $companies->email }}"
                   name="email"
                   type="text"
                   class="form-control"
                   id="validationCustomUsername"
                   aria-describedby="inputGroupPrepend"
                   required
-                />
-                <div class="invalid-feedback">Please enter a email.</div>
-              </div>
-            </div>
-            <!--end::Col-->
-
-          	<!--begin::Col-->
-            <div class="col-md-6">
-              <label for="inputPassword3" class="form-label">Password</label>
-              <div class="input-group has-validation">
-                <input
-                  name="password"
-                  type="password"
-                  class="form-control"
-                  required
+                  readonly
                 />
                 <div class="invalid-feedback">Please enter a email.</div>
               </div>
@@ -65,9 +62,10 @@
             <!--end::Col-->
 
             <!--begin::Col-->
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="validationCustom01" class="form-label">Name</label>
               <input
+                value="{{ $companies->name }}"
                 name="name"
                 type="text"
                 class="form-control"
@@ -79,9 +77,10 @@
             <!--end::Col-->
 
             <!--begin::Col-->
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="validationCustom02" class="form-label">Description</label>
               <input
+                value="{{ $companies->description }}"
                 name="description"
                 type="text"
                 class="form-control"

@@ -21,6 +21,16 @@
           </div>
       @endif
 
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
       <div class="card-header"><div class="card-title">Edit Review</div></div>
       <!--end::Header-->
       <!--begin::Form-->

@@ -19,7 +19,7 @@ class AdminCompanyController extends Controller
 {
     // Company
     public function createCompany(Request $request){
-        return view('admin.createCompany');
+        return view('admin.company.createCompany');
     }
 
     public function addCompany(Request $request){
@@ -62,11 +62,7 @@ class AdminCompanyController extends Controller
         try {
             $user_id    = Session::get('user_id');
             $companies  = Company::where('companies.user_id', $user_id)->with('packageCodes')->with('reviews')->get();
-            if($companies->isNotEmpty()){
-                return view('admin.viewCompany',compact('companies'));
-            }else{
-                return redirect()->route('admin.dashboard')->with('error','Something went wrong');
-            }
+            return view('admin.company.viewCompany',compact('companies'));            
         } catch (\Exception $e) {
             return redirect()->route('admin.dashboard')->with('error','Something went wrong');            
         }
@@ -77,7 +73,7 @@ class AdminCompanyController extends Controller
             $companies  = Company::where('companies.id', $id)->with('packageCodes')->with('reviews')->get();
             if($companies->isNotEmpty()){
                 $companies = $companies[0];
-                return view('admin.editCompany',compact('companies', 'id'));
+                return view('admin.company.editCompany',compact('companies', 'id'));
             }else{
                 return redirect()->route('admin.viewCompany')->with('error','Something went wrong');
             }
