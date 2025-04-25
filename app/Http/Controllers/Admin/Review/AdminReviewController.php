@@ -27,11 +27,11 @@ class AdminReviewController extends Controller
                 $reviews = DB::table('reviews')->where('user_id',$user_id)->get();
             }
 
-            if($reviews->isNotEmpty()){
+            // if($reviews->isNotEmpty()){
                 return view('admin.review.viewReview',compact('reviews'));
-            }else{
-                return redirect()->route('admin.dashboard')->with('error','Something went wrong');
-            }
+            // }else{
+            //     return redirect()->route('admin.dashboard')->with('error','Something went wrong');
+            // }
         } catch (\Exception $e) {
             return redirect()->route('admin.dashboard')->with('error','Something went wrong');            
         }

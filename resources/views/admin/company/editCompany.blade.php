@@ -56,7 +56,7 @@
                   required
                   readonly
                 />
-                <div class="invalid-feedback">Please enter a email.</div>
+                <div class="valid-feedback">Looks good!</div>
               </div>
             </div>
             <!--end::Col-->
@@ -73,6 +73,7 @@
                 required
               />
               <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please enter company name.</div>
             </div>
             <!--end::Col-->
 
@@ -88,6 +89,7 @@
                 required
               />
               <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please enter company description.</div>
             </div>
             <!--end::Col-->
             

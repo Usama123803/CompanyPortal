@@ -51,6 +51,7 @@
                 	@endforeach
                 </select>
               	<div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please select company.</div>
             </div>
             <!--end::Col-->
 
@@ -59,6 +60,7 @@
               	<label for="validationCustom01" class="form-label">Package Code</label>
               	<input name="code" type="text" class="form-control" id="validationCustom01" required/>
               	<div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter package code.</div>
             </div>
             <!--end::Col-->
 
@@ -71,6 +73,7 @@
               		<option value="Nonshifting">Non-Shifting</option>
               	</select>
               	<div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please select package type.</div>
             </div>
             <!--end::Col-->
 
@@ -79,6 +82,7 @@
               	<label for="validationCustom01" class="form-label">Package Start Date</label>
               	<input name="start_date" type="date" class="form-control" id="validationCustom01" required/>
               	<div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter start date.</div>
             </div>
             <!--end::Col-->
 
@@ -87,6 +91,7 @@
               	<label for="validationCustom01" class="form-label">Package End Date</label>
               	<input name="end_date" type="date" class="form-control" id="validationCustom01" required/>
               	<div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter end date.</div>
             </div>
             <!--end::Col-->
 

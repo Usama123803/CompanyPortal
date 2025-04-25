@@ -55,7 +55,8 @@
                   aria-describedby="inputGroupPrepend"
                   required
                 />
-                <div class="invalid-feedback">Please enter a email.</div>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter email.</div>
               </div>
             </div>
             <!--end::Col-->
@@ -71,7 +72,8 @@
                   class="form-control"
                   required
                 />
-                <div class="invalid-feedback">Please enter a email.</div>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter password.</div>
               </div>
             </div>
             <!--end::Col-->
@@ -88,6 +90,7 @@
                 required
               />
               <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please enter company name.</div>
             </div>
             <!--end::Col-->
 
@@ -103,21 +106,8 @@
                 required
               />
               <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please enter company description.</div>
             </div>
-            <!--end::Col-->
-            
-            <!--begin::Col-->
-            <!-- <div class="col-md-4">
-              <label for="validationCustom03" class="form-label">Package Code</label>
-              <input
-              	name="package_code"
-                type="text"
-                class="form-control"
-                id="validationCustom03"
-                required
-              />
-              <div class="invalid-feedback">Please provide a valid Package Code.</div>
-            </div> -->
             <!--end::Col-->
 
           </div>

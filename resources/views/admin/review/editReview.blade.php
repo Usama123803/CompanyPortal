@@ -48,6 +48,7 @@
                 <label for="validationCustom01" class="form-label">User Name</label>
                 <input name="user_name" value="{{ $reviews->user_name }}" type="text" class="form-control" id="validationCustom01" required readonly/>
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter user name</div>
             </div>
             <!--end::Col-->
 
@@ -56,6 +57,7 @@
                 <label for="validationCustom01" class="form-label">Email</label>
                 <input name="email" value="{{ $reviews->email }}" type="email" class="form-control" id="validationCustom01" required readonly/>
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter email</div>
             </div>
             <!--end::Col-->
 
@@ -64,6 +66,7 @@
                 <label for="validationCustom01" class="form-label">Contact</label>
                 <input name="contact_no" value="{{ $reviews->contact_no }}" type="number" class="form-control" id="validationCustom01" required readonly/>
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter contact</div>
             </div>
             <!--end::Col-->
 
@@ -80,6 +83,7 @@
                   @endforeach
                 </select>
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please select package code</div>
             </div>
             <!--end::Col-->
 
@@ -88,6 +92,7 @@
                 <label for="validationCustom01" class="form-label">Nusuk Booking Number</label>
                 <input name="nusuk_booking_no" value="{{ $reviews->nusuk_booking_no }}" type="text" class="form-control" id="validationCustom01" required/>
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter nusuk booking number</div>
             </div>
             <!--end::Col-->
 
@@ -96,6 +101,7 @@
                 <label for="validationCustom01" class="form-label">Guide Name</label>
                 <input name="guide_name" value="{{ $reviews->guide_name }}" type="text" class="form-control" id="validationCustom01" required/>
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter guide name</div>
             </div>
             <!--end::Col-->
 
@@ -110,6 +116,7 @@
                   @endfor
               </select>
               <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please select accommodation</div>
             </div>
             <!--end::Col-->
 
@@ -124,6 +131,7 @@
                   @endfor
               </select>
               <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please select transportation</div>
             </div>
             <!--end::Col-->
 
@@ -138,6 +146,7 @@
                   @endfor
               </select>
               <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please select meal</div>
             </div>
             <!--end::Col-->
 
@@ -152,6 +161,7 @@
                   @endfor
               </select>
               <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please select guide support during booking process</div>
             </div>
             <!--end::Col-->
 
@@ -166,6 +176,7 @@
                   @endfor
               </select>
               <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please select guide support during hajj</div>
             </div>
             <!--end::Col-->
 
@@ -174,6 +185,7 @@
                 <label for="validationCustom01" class="form-label">Tell us more about your experience</label>
                 <textarea name="experience" value="{{ $reviews->experience }}" class="form-control" id="validationCustom01" required/>{{ $reviews->experience }}</textarea>
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please tell us more about your experience</div>
             </div>
             <!--end::Col-->
 

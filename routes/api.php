@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CompanyLoginController;
 use App\Http\Controllers\Admin\Company\CompanyApiController;
 use App\Http\Controllers\Company\Review\ReviewApiController;
+use App\Http\Controllers\Contact\ContactUsApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('getAllCompanyList', [CompanyApiController::class, 'getAllCompanyList']);
 Route::post('getCompanyList', [CompanyApiController::class, 'getCompanyList']);
 Route::post('addReview', [ReviewApiController::class, 'addReview']);
+
+Route::post('addContactUsDetails', [ContactUsApiController::class, 'addContactUsDetails']);
