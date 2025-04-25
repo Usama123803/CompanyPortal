@@ -26,11 +26,11 @@ class ReviewApiController extends Controller
         ]);
         
         try {
-            $company                            = DB::table('companies')->where('id', $request->company_id)->first();
+            $company                            = DB::table('companies')->where('slug', $request->slug)->first();
             $package_codes                      = DB::table('package_codes')->where('id', $request->package_code)->first();
             $data                               = DB::table('reviews')->insertGetId([
                 'user_id'                       => $company->user_id,
-                'company_id'                    => $request->company_id,
+                'company_id'                    => $company->id,
                 'packagecode_id'                => $request->package_code,
                 'user_name'                     => $request->user_name,
                 'email'                         => $request->email,

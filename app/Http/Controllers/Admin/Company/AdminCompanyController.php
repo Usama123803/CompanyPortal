@@ -36,7 +36,6 @@ class AdminCompanyController extends Controller
             if (DB::table('companies')->where('slug', $slug)->exists()) {
                 return redirect()->route('admin.createCompany')->with('error', 'Company already exist');
             }
-
             $data               = DB::table('companies')->insertGetId([
                 'user_id'       => $user_id,
                 'email'         => $request->email,
@@ -95,8 +94,13 @@ class AdminCompanyController extends Controller
         
         try {
             $user_id            = Session::get('user_id');
+            $slug               = Str::slug($request->name);
+            if (DB::table('companies')->where('id', '!=', $id)->where('slug', $slug)->exists()) {
+                return redirect()->route('admin.viewCompany')->with('error', 'Company already exist');
+            }
             $data               = DB::table('companies')->where('id', $id)->update([
                 'name'          => $request->name,
+                'slug'          => $slug,
                 'description'   => $request->description,
                 'updated_at'    => now(),
             ]);
