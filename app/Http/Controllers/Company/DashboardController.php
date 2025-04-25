@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use App\Models\Company;
+use App\Models\PackageCode;
+use App\Models\Review;
 
 class DashboardController extends Controller
 {
@@ -24,12 +27,13 @@ class DashboardController extends Controller
         try {
             $user_id        = Session::get('user_id');
             $company_id     = Session::get('company_id');
-            $package_codes  = DB::table('package_codes')
-                                ->where('package_codes.user_id',$user_id)
-                                ->where('package_codes.company_id',$company_id)
-                                ->join('companies','package_codes.company_id','companies.id')
-                                ->select('package_codes.*','companies.name')
-                                ->get();
+            // $package_codes  = DB::table('package_codes')
+            //                     ->where('package_codes.user_id',$user_id)
+            //                     ->where('package_codes.company_id',$company_id)
+            //                     ->join('companies','package_codes.company_id','companies.id')
+            //                     ->select('package_codes.*','companies.name')
+            //                     ->get();
+            $package_codes  = PackageCode::where('package_codes.user_id', $user_id)->where('package_codes.company_id',$company_id)->with('company')->with('reviews')->get();
             if($package_codes){
                 return view('admin.viewPackageCode',compact('package_codes'));
             }else{
