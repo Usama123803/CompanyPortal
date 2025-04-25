@@ -10,7 +10,7 @@ use App\Models\Company;
 use App\Models\PackageCode;
 use App\Models\Review;
 
-class DashboardController extends Controller
+class CompanyDashboardController extends Controller
 {
     public function index()
     {

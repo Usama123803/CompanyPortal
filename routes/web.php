@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CompanyLoginController;
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\PackageCode\AdminPackageCodeDashboard;
 use App\Http\Controllers\Admin\Company\AdminCompanyController;
 use App\Http\Controllers\Admin\Review\AdminReviewController;
+use App\Http\Controllers\Company\CompanyDashboardController;
 use App\Http\Controllers\Company\Review\CompanyReviewController;
 use App\Http\Controllers\Company\PackageCode\CompanyPackageCodeController;
 
@@ -22,8 +23,8 @@ use App\Http\Controllers\Company\PackageCode\CompanyPackageCodeController;
 
 // Admin routes
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
     // Package Code
     Route::get('/admin/createPackageCode', [AdminPackageCodeDashboard::class, 'createPackageCode'])->name('admin.createPackageCode');
@@ -56,7 +57,7 @@ Route::prefix('company')->group(function () {
     Route::post('/login', [CompanyLoginController::class, 'login']);
     
     Route::middleware('auth:company')->group(function () {
-        Route::get('/dashboard', [CompanyDashboard::class, 'index'])->name('company.dashboard');
+        Route::get('/dashboard', [CompanyDashboardController::class, 'index'])->name('company.dashboard');
         Route::post('/logout', [CompanyLoginController::class, 'logout'])->name('company.logout');
 
         // Package Code

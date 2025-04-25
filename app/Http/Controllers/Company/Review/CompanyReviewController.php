@@ -28,7 +28,7 @@ class CompanyReviewController extends Controller
             }
 
             if($reviews){
-                return view('company.viewReview',compact('reviews'));
+                return view('company.review.viewReview',compact('reviews'));
             }else{
                 return redirect()->route('company.dashboard')->with('error','Something went wrong');
             }

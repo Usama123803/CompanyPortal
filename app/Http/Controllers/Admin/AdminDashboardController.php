@@ -14,7 +14,7 @@ use App\Models\Company;
 use App\Models\PackageCode;
 use Illuminate\Validation\Rule;
 
-class DashboardController extends Controller
+class AdminDashboardController extends Controller
 {
     public function index()
     {

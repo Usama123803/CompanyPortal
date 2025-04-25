@@ -21,9 +21,9 @@ class CompanyApiController extends Controller
         try {
             $companies = Company::with('packageCodes')
                             ->with(['reviews' => function($query) {
-                                $query->where('status', 'approve');
-                            }])
-                            ->orderBy('id', 'desc')->get();
+                                $query->where('status', 'approve')
+                                ->orderBy('id', 'desc');
+                            }])->get();
             return response()->json([
                 'success'   => true,
                 'data'      => $companies,
@@ -39,9 +39,10 @@ class CompanyApiController extends Controller
 
     public function getCompanyList(Request $request){
         try {
-            $data = Company::where('companies.id', $request->id)->with('packageCodes')
+            $data = Company::where('companies.slug', $request->slug)->with('packageCodes')
                         ->with(['reviews' => function($query) {
-                            $query->where('status', 'approve');
+                            $query->where('status', 'approve')
+                            ->orderBy('id', 'desc');;
                         }])
                         ->first();
             return response()->json([

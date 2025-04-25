@@ -6,8 +6,26 @@
 
 	<div class="card card-info card-outline mb-4">
       <!--begin::Header-->
-      <div class="card-header"><div class="card-title">Create Company</div></div>
+      <div class="card-header">
+        <div class="card-title">Create Company</div>
+
+        @if (session('success'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ session('success') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        @endif
+
+        @if (session('error'))
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ session('error') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        @endif
+
+      </div>
       <!--end::Header-->
+
       <!--begin::Form-->
       <form class="needs-validation" action="{{ route('admin.addCompany') }}" novalidate method="post">
       	@csrf

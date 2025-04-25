@@ -13,7 +13,7 @@ class Company extends Authenticatable
     protected $table = 'companies';
 
     protected $fillable = [
-        'name', 'email', 'password', 'description', 'package_code',
+        'name', 'slug', 'email', 'password', 'description', 'package_code',
     ];
 
     protected $hidden = [

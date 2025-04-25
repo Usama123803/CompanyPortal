@@ -10,9 +10,10 @@ use concat;
 use Auth;
 use DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use App\Models\Company;
 use App\Models\PackageCode;
-use Illuminate\Validation\Rule;
 
 class AdminCompanyController extends Controller
 {
@@ -23,19 +24,25 @@ class AdminCompanyController extends Controller
 
     public function addCompany(Request $request){
         $request->validate([
-            'email'       => 'required|string|email|unique:companies,email|max:255',
-            'password'    => 'required|string|max:255',
-            'name'        => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'email'             => 'required|string|email|unique:companies,email|max:255',
+            'password'          => 'required|string|max:255',
+            'name'              => 'required|string|max:255',
+            'description'       => 'required|string|max:255',
         ]);
         
         try {
             $user_id            = Session::get('user_id');
+            $slug               = Str::slug($request->name);
+            if (DB::table('companies')->where('slug', $slug)->exists()) {
+                return redirect()->route('admin.createCompany')->with('error', 'Company already exist');
+            }
+
             $data               = DB::table('companies')->insertGetId([
                 'user_id'       => $user_id,
                 'email'         => $request->email,
                 'password'      => Hash::make($request->password),
                 'name'          => $request->name,
+                'slug'          => $slug,
                 'description'   => $request->description,
                 'created_at'    => now(),
                 'updated_at'    => now(),
@@ -47,6 +54,7 @@ class AdminCompanyController extends Controller
                 return redirect()->route('admin.createCompany')->with('error','Something went wrong');
             }
         } catch (\Exception $e) {
+            // dd($e);
             return redirect()->route('admin.createCompany')->with('error','Something went wrong');            
         }
     }
@@ -81,8 +89,8 @@ class AdminCompanyController extends Controller
 
     public function updateCompany(Request $request, $id){
         $request->validate([
-            'name'        => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'name'              => 'required|string|max:255',
+            'description'       => 'required|string|max:255',
         ]);
         
         try {
