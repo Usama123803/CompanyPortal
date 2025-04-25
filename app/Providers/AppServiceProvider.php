@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\ContactUs;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Get the 3 latest messages for the admin
+        $messages = ContactUs::latest()->take(3)->get();
+        
+        // Share the messages globally across all views
+        view()->share('messages', $messages);
     }
 }

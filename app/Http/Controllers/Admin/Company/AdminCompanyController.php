@@ -12,6 +12,7 @@ use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 use App\Models\Company;
 use App\Models\PackageCode;
 
@@ -28,6 +29,7 @@ class AdminCompanyController extends Controller
             'password'          => 'required|string|max:255',
             'name'              => 'required|string|max:255',
             'description'       => 'required',
+            // 'companylogo'       => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
         
         try {
@@ -36,6 +38,21 @@ class AdminCompanyController extends Controller
             if (DB::table('companies')->where('slug', $slug)->exists()) {
                 return redirect()->route('admin.createCompany')->with('error', 'Company already exist');
             }
+
+            // Handle image upload
+            if ($request->hasFile('companylogo')) {
+                $file       = $request->file('companylogo');
+                $filename   = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path       = public_path('uploads/company_logos/');
+
+                // Create directory if it doesn't exist
+                if (!File::exists($path)) {
+                    File::makeDirectory($path, 0755, true);
+                }
+
+                $file->move($path, $filename);
+            }
+
             $data               = DB::table('companies')->insertGetId([
                 'user_id'       => $user_id,
                 'email'         => $request->email,
@@ -43,6 +60,7 @@ class AdminCompanyController extends Controller
                 'name'          => $request->name,
                 'slug'          => $slug,
                 'description'   => $request->description,
+                'companylogo'   => $filename ?? null,
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ]);
@@ -62,9 +80,9 @@ class AdminCompanyController extends Controller
         try {
             $user_id    = Session::get('user_id');
             $companies  = Company::where('companies.user_id', $user_id)->with('packageCodes')->with('reviews')->get();
-            return view('admin.company.viewCompany',compact('companies'));            
+            return view('admin.company.viewCompany',compact('companies'));
         } catch (\Exception $e) {
-            return redirect()->route('admin.dashboard')->with('error','Something went wrong');            
+            return redirect()->route('admin.dashboard')->with('error','Something went wrong');
         }
     }
 
@@ -94,10 +112,28 @@ class AdminCompanyController extends Controller
             if (DB::table('companies')->where('id', '!=', $id)->where('slug', $slug)->exists()) {
                 return redirect()->route('admin.viewCompany')->with('error', 'Company already exist');
             }
+
+            // Handle image upload
+            if ($request->hasFile('companylogo')) {
+                $file       = $request->file('companylogo');
+                $filename   = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path       = public_path('uploads/company_logos/');
+
+                // Create directory if it doesn't exist
+                if (!File::exists($path)) {
+                    File::makeDirectory($path, 0755, true);
+                }
+
+                $file->move($path, $filename);
+            }else{
+                $filename      = $request->companylogoelse;
+            }
+
             $data               = DB::table('companies')->where('id', $id)->update([
                 'name'          => $request->name,
                 'slug'          => $slug,
                 'description'   => $request->description,
+                'companylogo'   => $filename ?? null,
                 'updated_at'    => now(),
             ]);
 

@@ -12,6 +12,7 @@ use DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Company;
 use App\Models\PackageCode;
+use App\Models\ContactUs;
 use Illuminate\Validation\Rule;
 
 class AdminDashboardController extends Controller

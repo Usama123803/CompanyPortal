@@ -109,6 +109,37 @@
               </div>
             </li> -->
             <!--end::Notifications Dropdown Menu-->
+            
+            @if(Session::has('Company'))
+            @else
+              <!--begin::Messages Dropdown Menu-->
+              <li class="nav-item dropdown">
+                  <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                      <i class="bi bi-chat-text"></i>
+                      <span class="navbar-badge badge text-bg-danger">{{ $messages->count() }}</span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                    @forelse($messages as $message)
+                        <a href="#" class="dropdown-item">
+                            <div class="d-flex">
+                                <div class="flex-grow-1">
+                                    <h3 class="dropdown-item-title">{{ $message->name }}</h3>
+                                    <p class="fs-7">{{ Str::limit($message->subject, 50) }}</p>
+                                    <p class="fs-7 text-secondary">
+                                        <i class="bi bi-clock-fill me-1"></i> {{ $message->created_at->diffForHumans() }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                    @empty
+                        <p>No new messages.</p>
+                    @endforelse
+                </div>
+              </li>
+              <!--end::Messages Dropdown Menu-->
+            @endif
+
             <!--begin::Fullscreen Toggle-->
             <li class="nav-item">
               <a class="nav-link" href="#" data-lte-toggle="fullscreen">

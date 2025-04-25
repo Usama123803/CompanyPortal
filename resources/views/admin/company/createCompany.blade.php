@@ -34,7 +34,7 @@
       @endif
 
       <!--begin::Form-->
-      <form class="needs-validation" action="{{ route('admin.addCompany') }}" novalidate method="post">
+      <form class="needs-validation" action="{{ route('admin.addCompany') }}" method="post" enctype="multipart/form-data" novalidate>
       	@csrf
         <!--begin::Body-->
         <div class="card-body">
@@ -48,15 +48,16 @@
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                 <input
                   name="email"
-                  type="text"
+                  type="email"
                   class="form-control"
                   id="validationCustomUsername"
                   value="{{ old('email') }}"
                   aria-describedby="inputGroupPrepend"
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                   required
                 />
                 <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please enter email.</div>
+                <div class="invalid-feedback">Please enter a valid email without spaces and with a valid domain (e.g., user@example.com)</div>
               </div>
             </div>
             <!--end::Col-->
@@ -70,10 +71,11 @@
                   type="password"
                   id="inputPassword3"
                   class="form-control"
+                  minlength="6"
                   required
                 />
                 <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please enter password.</div>
+                <div class="invalid-feedback">Please enter alleast 6 character password.</div>
               </div>
             </div>
             <!--end::Col-->
@@ -107,6 +109,20 @@
               />
               <div class="valid-feedback">Looks good!</div>
               <div class="invalid-feedback">Please enter company description.</div>
+            </div>
+            <!--end::Col-->
+
+            <!--begin::Col-->
+            <div class="col-md-6">
+              <label for="validationCustom02" class="form-label">Company Logo</label>
+              <input
+                name="companylogo"
+                type="file"
+                class="form-control"
+                id="validationCustom02"                
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please select company image.</div>
             </div>
             <!--end::Col-->
 

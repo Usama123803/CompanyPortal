@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Review\AdminReviewController;
 use App\Http\Controllers\Company\CompanyDashboardController;
 use App\Http\Controllers\Company\Review\CompanyReviewController;
 use App\Http\Controllers\Company\PackageCode\CompanyPackageCodeController;
+use App\Http\Controllers\Contact\ContactUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/deleteReview/{id}', [AdminReviewController::class, 'deleteReview'])->name('admin.deleteReview');
     Route::get('admin/approve/{id}', [AdminReviewController::class, 'approve']);
     Route::get('admin/pending/{id}', [AdminReviewController::class, 'pending']);
+
+    // Conatct
+    Route::get('admin/viewContactUsDetails', [ContactUsController::class, 'viewContactUsDetails'])->name('admin.viewContactUsDetails');
 });
 
 // Company routes

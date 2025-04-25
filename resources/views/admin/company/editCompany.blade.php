@@ -34,7 +34,7 @@
       @endif
 
       <!--begin::Form-->
-      <form class="needs-validation" action="{{ route('admin.updateCompany', ['id' => $id]) }}" novalidate method="post">
+      <form class="needs-validation" action="{{ route('admin.updateCompany', ['id' => $id]) }}" method="post" enctype="multipart/form-data" novalidate>
       	@csrf
         <!--begin::Body-->
         <div class="card-body">
@@ -94,19 +94,27 @@
             <!--end::Col-->
             
             <!--begin::Col-->
-            <!-- <div class="col-md-4">
-              <label for="validationCustom03" class="form-label">Package Code</label>
+            <div class="col-md-6">
+              <label for="validationCustom02" class="form-label">Company Logo</label>
               <input
-              	name="package_code"
-                type="text"
+                name="companylogo"
+                type="file"
                 class="form-control"
-                id="validationCustom03"
-                required
+                id="validationCustom02"                
               />
-              <div class="invalid-feedback">Please provide a valid Package Code.</div>
-            </div> -->
+              @if($companies->companylogo != null && $companies->companylogo != '')
+                <img src="{{ asset('uploads/company_logos/') }}/{{ $companies->companylogo }}" style="height: 150px; width: 150px;">
+                <input
+                  value="{{ $companies->companylogo }}"
+                  name="companylogoelse"
+                  type="hidden"
+                />
+              @endif
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please select company image.</div>
+            </div>
             <!--end::Col-->
-
+            
           </div>
           <!--end::Row-->
         </div>
