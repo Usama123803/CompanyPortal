@@ -55,7 +55,7 @@
               <div class="input-group has-validation">
                 <input
                   name="password"
-                  type="text"
+                  type="password"
                   class="form-control"
                   required
                 />

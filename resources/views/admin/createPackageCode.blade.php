@@ -8,6 +8,21 @@
       <!--begin::Header-->
       <div class="card-header"><div class="card-title">Create Package Code</div></div>
       <!--end::Header-->
+
+      @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
+
+      @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
+
       <!--begin::Form-->
       <form class="needs-validation" action="{{ route('admin.addPackageCode') }}" novalidate method="post">
       	@csrf

@@ -27,7 +27,7 @@ class AdminCompanyController extends Controller
             'email'             => 'required|string|email|unique:companies,email|max:255',
             'password'          => 'required|string|max:255',
             'name'              => 'required|string|max:255',
-            'description'       => 'required|string|max:255',
+            'description'       => 'required',
         ]);
         
         try {
@@ -89,7 +89,7 @@ class AdminCompanyController extends Controller
     public function updateCompany(Request $request, $id){
         $request->validate([
             'name'              => 'required|string|max:255',
-            'description'       => 'required|string|max:255',
+            'description'       => 'required',
         ]);
         
         try {
